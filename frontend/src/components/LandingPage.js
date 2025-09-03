@@ -124,7 +124,7 @@ const LandingPage = () => {
       title: "Limpeza de Tapetes",
       description:
         "Higienização profunda de tapetes e carpetes residenciais e comerciais.",
-      imageBase: "tapetes",
+	  image: "/img/tapetes-1200.jpg",
       details: {
         highlights: [
           "Lavagem técnica por extração",
