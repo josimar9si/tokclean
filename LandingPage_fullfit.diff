@@ -1,0 +1,30 @@
+--- a/frontend/src/components/LandingPage.js
++++ b/frontend/src/components/LandingPage.js
+@@ -208,11 +208,13 @@
+-              >
+-                <div className="h-48 overflow-hidden">
+-                  <img 
+-                    src={service.image} 
+-                    alt={service.title}
+-                    className="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
+-                  />
+-                </div>
++              >
++                {/* Imagem sem recorte (full-fit) */}
++                <div className="h-48 bg-white flex items-center justify-center">
++                  <img
++                    src={service.image}
++                    alt={service.title}
++                    className="max-h-48 w-full object-contain transition-transform duration-300 cursor-zoom-in"
++                    onClick={() => openModal(service)}
++                  />
++                </div>
+@@ -235,7 +237,11 @@
+-                  <button className="text-blue-600 font-semibold hover:text-blue-700 transition-colors">
++                  <button
++                    className="text-blue-600 font-semibold hover:text-blue-700 transition-colors"
++                    onClick={() => openModal(service)}
++                  >
+                     Saiba mais →
+-                  </button>
++                  </button>
