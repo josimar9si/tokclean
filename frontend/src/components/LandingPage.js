@@ -34,7 +34,7 @@ const LandingPage = () => {
       icon: <Sofa className="w-8 h-8" />,
       title: "Higienização de Estofados",
       description: "Limpeza profunda e hipermeabilização de sofás, poltronas e móveis estofados.",
-      image: "https://images.pexels.com/photos/2418645/pexels-photo-2418645.jpeg"
+      image: "/img/estofados-1200.jpg"
     },
     {
       icon: <Car className="w-8 h-8" />,
@@ -46,13 +46,13 @@ const LandingPage = () => {
       icon: <Building className="w-8 h-8" />,
       title: "Limpeza de Escritórios",
       description: "Higienização completa de ambientes corporativos e comerciais.",
-      image: "https://images.unsplash.com/photo-1555212697-194d092e3b8f?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Njl8MHwxfHNlYXJjaHwxfHxvZmZpY2UlMjBjbGVhbmluZ3xlbnwwfHx8Ymx1ZXwxNzUyNDIwNDY1fDA&ixlib=rb-4.1.0&q=85"
+      image: "/img/escritorio-1200.jpg"
     },
     {
       icon: <Stethoscope className="w-8 h-8" />,
       title: "Higienização de Clínicas",
       description: "Limpeza especializada para ambientes médicos e de saúde.",
-      image: "https://images.unsplash.com/photo-1614691421377-8b2c81605bf0?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Njl8MHwxfHNlYXJjaHwyfHxvZmZpY2UlMjBjbGVhbmluZ3xlbnwwfHx8Ymx1ZXwxNzUyNDIwNDY1fDA&ixlib=rb-4.1.0&q=85"
+      image: "/img/clinicas-1200.jpg" 
     },
     {
       icon: <Square className="w-8 h-8" />,
@@ -64,7 +64,7 @@ const LandingPage = () => {
       icon: <ArrowUp className="w-8 h-8" />,
       title: "Limpeza de Elevadores",
       description: "Higienização especializada de elevadores e espaços confinados.",
-      image: "https://images.unsplash.com/photo-1583907659441-addbe699e921?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2NDF8MHwxfHNlYXJjaHwyfHxjbGVhbmluZyUyMHNlcnZpY2V8ZW58MHx8fGJsdWV8MTc1MjQyMDQ1OHww&ixlib=rb-4.1.0&q=85"
+      image: "/img/elevadores-1200.jpg" 
     }
   ];
 
