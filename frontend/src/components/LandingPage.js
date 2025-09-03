@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { 
   PhoneIcon, 
@@ -23,36 +23,101 @@ import {
   Award,
   Users,
   Clock,
-  MessageCircle
+  MessageCircle,
+  X,
+  ExternalLink
 } from "lucide-react";
 
 const LandingPage = () => {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
+
+  // ✅ estado do modal
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedService, setSelectedService] = useState(null);
+  const closeBtnRef = useRef(null);
+
+  const openModal = (service) => {
+    setSelectedService(service);
+    setIsModalOpen(true);
+  };
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedService(null);
+  };
+
+  useEffect(() => {
+    const onEsc = (e) => e.key === "Escape" && closeModal();
+    if (isModalOpen) {
+      document.addEventListener("keydown", onEsc);
+      setTimeout(() => closeBtnRef.current?.focus(), 50);
+    }
+    return () => document.removeEventListener("keydown", onEsc);
+  }, [isModalOpen]);
 
   const services = [
     {
       icon: <Sofa className="w-8 h-8" />,
       title: "Higienização de Estofados",
       description: "Limpeza profunda e hipermeabilização de sofás, poltronas e móveis estofados.",
-      image: "/img/estofados-1200.jpg"
+      image: "/img/estofados-1200.jpg",
+      details: {
+        highlights: [
+          "Extração profunda de sujeira",
+          "Secagem mais rápida",
+          "Opção de impermeabilização"
+        ],
+        text: "Remove manchas e odores, devolvendo o conforto e prolongando a vida útil do tecido. Ideal para lares com crianças, pets ou alta circulação.",
+        ctaLabel: "Quero impermeabilizar",
+        ctaLink: "https://wa.me/5551992316723?text=Estofados%20-%20impermeabiliza%C3%A7%C3%A3o"
+      }
     },
     {
-      icon: <Car className="w-8 h-8" />,
-      title: "Higienização de Veículos",
-      description: "Limpeza completa de bancos, carpetes e acabamentos internos automotivos.",
-      image: "https://images.pexels.com/photos/7544430/pexels-photo-7544430.jpeg"
-    },
+	  icon: <Car className="w-8 h-8" />,
+	  title: "Higienização de Veículos",
+	  description: "Limpeza completa de bancos, carpetes e acabamentos internos automotivos.",
+	  image: "/img/veiculos-1200.jpg",          // ← novo caminho
+	  details: {
+		highlights: [
+		  "Extração profunda dos tecidos",
+		  "Remoção de odores (suor, comida, pets)",
+		  "Higienização do ar e plásticos internos"
+		],
+		text: "Seu carro com aparência e cheiro de novo: bancos, teto, forrações e carpetes com limpeza técnica e produtos adequados.",
+		ctaLabel: "Quero higienizar meu carro",
+		ctaLink: "https://wa.me/5551992316723?text=Ve%C3%ADculos%20-%20higieniza%C3%A7%C3%A3o"
+	  }
+	},
     {
       icon: <Building className="w-8 h-8" />,
       title: "Limpeza de Escritórios",
       description: "Higienização completa de ambientes corporativos e comerciais.",
-      image: "/img/escritorio-1200.jpg"
+      image: "/img/escritorio-1200.jpg",
+      details: {
+        highlights: [
+          "Ambientes sem poeira e ácaros",
+          "Cuidado com estações e eletrônicos",
+          "Atuação fora do horário comercial"
+        ],
+        text: "Rotinas customizadas por área (salas, recepção, copa) para manter produtividade e imagem profissional sem interromper suas operações.",
+        ctaLabel: "Falar com especialista",
+        ctaLink: "https://wa.me/5551992316723?text=Escrit%C3%B3rio%20-%20quero%20detalhes"
+      }
     },
     {
       icon: <Stethoscope className="w-8 h-8" />,
       title: "Higienização de Clínicas",
       description: "Limpeza especializada para ambientes médicos e de saúde.",
-      image: "/img/clinicas-1200.jpg" 
+      image: "/img/clinicas-1200.jpg",
+      details: {
+        highlights: [
+          "Protocolos e EPIs adequados",
+          "Foco em cadeiras, recepção e áreas críticas",
+          "Produtos compatíveis com área da saúde"
+        ],
+        text: "Reduz riscos, melhora a segurança do paciente e equipe, e mantém seu consultório dentro de boas práticas de limpeza.",
+        ctaLabel: "Ver protocolos",
+        ctaLink: "https://wa.me/5551992316723?text=Cl%C3%ADnicas%20-%20protocolos"
+      }
     },
     {
       icon: <Square className="w-8 h-8" />,
@@ -64,7 +129,17 @@ const LandingPage = () => {
       icon: <ArrowUp className="w-8 h-8" />,
       title: "Limpeza de Elevadores",
       description: "Higienização especializada de elevadores e espaços confinados.",
-      image: "/img/elevadores-1200.jpg" 
+      image: "/img/elevadores-1200.jpg",
+      details: {
+        highlights: [
+          "Proteções de cabine e portas durante a execução",
+          "Produtos adequados para painéis e aço inox",
+          "Remoção de odores e higienização de botoeiras"
+        ],
+        text: "Ideal para condomínios e prédios comerciais que precisam manter cabines limpas e sem odores, com mínima interrupção.",
+        ctaLabel: "Solicitar orçamento",
+        ctaLink: "https://wa.me/5551992316723?text=Quero%20or%C3%A7amento%20para%20elevadores"
+      }
     }
   ];
 
@@ -261,7 +336,8 @@ const LandingPage = () => {
                   <img 
                     src={service.image} 
                     alt={service.title}
-                    className="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
+                    className="w-full h-full object-cover hover:scale-110 transition-transform duration-300 cursor-zoom-in"
+                    onClick={() => openModal(service)}
                   />
                 </div>
                 <div className="p-6">
@@ -276,7 +352,10 @@ const LandingPage = () => {
                     </h3>
                   </div>
                   <p className="text-gray-600 mb-4">{service.description}</p>
-                  <button className="text-blue-600 font-semibold hover:text-blue-700 transition-colors">
+                  <button
+                    className="text-blue-600 font-semibold hover:text-blue-700 transition-colors"
+                    onClick={() => openModal(service)}
+                  >
                     Saiba mais →
                   </button>
                 </div>
@@ -613,6 +692,83 @@ const LandingPage = () => {
           1
         </span>
       </motion.button>
+
+      {/* ✅ Modal */}
+      {isModalOpen && selectedService && (
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center"
+          aria-modal="true"
+          role="dialog"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) closeModal(); // fecha no backdrop
+          }}
+        >
+          <div className="absolute inset-0 bg-black/60" />
+
+          <div className="relative z-10 max-w-5xl w-[92%] bg-white rounded-2xl shadow-2xl overflow-hidden">
+            {/* Header */}
+            <div className="flex items-center justify-between px-5 py-4 border-b">
+              <h3 className="text-lg font-semibold">{selectedService.title}</h3>
+              <button
+                ref={closeBtnRef}
+                onClick={closeModal}
+                className="p-2 rounded-full hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                aria-label="Fechar modal"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Body */}
+            <div className="grid md:grid-cols-2 gap-0">
+              {/* Imagem expandida */}
+              <div className="bg-black">
+                <img
+                  src={selectedService.image}
+                  alt={selectedService.title}
+                  className="w-full h-full md:h-[520px] object-contain bg-black"
+                />
+              </div>
+
+              {/* Informações */}
+              <div className="p-6">
+                <p className="text-sm text-gray-700 leading-relaxed">
+                  {selectedService.details?.text || selectedService.description}
+                </p>
+
+                {selectedService.details?.highlights?.length > 0 && (
+                  <ul className="mt-4 space-y-2 text-sm text-gray-800 list-disc pl-5">
+                    {selectedService.details.highlights.map((h, i) => (
+                      <li key={i}>{h}</li>
+                    ))}
+                  </ul>
+                )}
+
+                <div className="mt-6 flex flex-wrap gap-3">
+                  {selectedService.details?.ctaLink && (
+                    <a
+                      href={selectedService.details.ctaLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-600 text-white hover:bg-blue-700"
+                    >
+                      {selectedService.details?.ctaLabel || "Entrar em contato"}
+                      <ExternalLink className="w-4 h-4" />
+                    </a>
+                  )}
+
+                  <button
+                    onClick={closeModal}
+                    className="px-4 py-2 rounded-full border border-gray-300 hover:bg-gray-50"
+                  >
+                    Fechar
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
