@@ -122,8 +122,21 @@ const LandingPage = () => {
     {
       icon: <Square className="w-8 h-8" />,
       title: "Limpeza de Tapetes",
-      description: "Higienização profunda de tapetes e carpetes residenciais e comerciais.",
-      image: "https://images.pexels.com/photos/9093874/pexels-photo-9093874.jpeg"
+      description:
+        "Higienização profunda de tapetes e carpetes residenciais e comerciais.",
+      imageBase: "tapetes",
+      details: {
+        highlights: [
+          "Lavagem técnica por extração",
+          "Remoção de manchas e pelos de pets",
+          "Neutralização de odores (mofo, urina, comida)",
+        ],
+        text:
+          "Cuidamos de tapetes sintéticos e fibras naturais (como lã) com produtos e técnicas adequadas, restaurando maciez e cor.",
+        ctaLabel: "Quero higienizar meu tapete",
+        ctaLink:
+          "https://wa.me/5551992316723?text=Tapetes%20-%20or%C3%A7amento",
+      },
     },
     {
       icon: <ArrowUp className="w-8 h-8" />,
