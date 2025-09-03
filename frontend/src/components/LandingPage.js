@@ -78,6 +78,7 @@ const LandingPage = () => {
       description:
         "Limpeza profunda e hipermeabilização de sofás, poltronas e móveis estofados.",
       imageBase: "estofados",
+	  objectPosition: "object-center",
       details: {
         highlights: ["Extração profunda de sujeira", "Secagem mais rápida", "Opção de impermeabilização"],
         text:
@@ -93,6 +94,7 @@ const LandingPage = () => {
       description:
         "Limpeza completa de bancos, carpetes e acabamentos internos automotivos.",
       imageBase: "veiculos",
+	  objectPosition: "object-center",
       details: {
         highlights: [
           "Extração profunda dos tecidos",
@@ -111,6 +113,7 @@ const LandingPage = () => {
       title: "Limpeza de Escritórios",
       description: "Higienização completa de ambientes corporativos e comerciais.",
       imageBase: "escritorio",
+	  objectPosition: "object-[center_70%]",
       details: {
         highlights: [
           "Ambientes sem poeira e ácaros",
@@ -129,6 +132,7 @@ const LandingPage = () => {
       title: "Higienização de Clínicas",
       description: "Limpeza especializada para ambientes médicos e de saúde.",
       imageBase: "clinicas",
+	  objectPosition: "object-center",
       details: {
         highlights: [
           "Protocolos e EPIs adequados",
@@ -148,6 +152,7 @@ const LandingPage = () => {
       description:
         "Higienização profunda de tapetes e carpetes residenciais e comerciais.",
       imageBase: "tapetes",
+	  objectPosition: "object-center",
       details: {
         highlights: [
           "Lavagem técnica por extração",
@@ -166,6 +171,7 @@ const LandingPage = () => {
       title: "Limpeza de Elevadores",
       description: "Higienização especializada de elevadores e espaços confinados.",
       imageBase: "elevadores",
+	  objectPosition: "object-center",
       details: {
         highlights: [
           "Proteções de cabine e portas durante a execução",
