@@ -54,37 +54,12 @@ const LandingPage = () => {
     return () => document.removeEventListener("keydown", onEsc);
   }, [isModalOpen]);
 
-  // 🔎 helper para renderizar imagem com <picture> e srcset
-  const ServicePicture = ({ base, alt, className, onClick, variant = "card" }) => {
-    // variant "card" → até 1200/2000; "modal" → até 3000
-    const sizes =
-      variant === "card"
-        ? '(max-width: 768px) 600px, (max-width: 1440px) 1200px, 2000px'
-        : '(max-width: 768px) 600px, (max-width: 1440px) 1200px, (max-width: 1920px) 2000px, 3000px';
-    return (
-      <picture onClick={onClick} className={className}>
-        <source
-          srcSet={`/img/${base}-600.webp 600w, /img/${base}-1200.webp 1200w, /img/${base}-2000.webp 2000w${variant === "modal" ? `, /img/${base}-3000.webp 3000w` : ""}`}
-          type="image/webp"
-        />
-        <img
-          src={`/img/${base}-1200.jpg`}
-          srcSet={`/img/${base}-600.jpg 600w, /img/${base}-1200.jpg 1200w, /img/${base}-2000.jpg 2000w${variant === "modal" ? `, /img/${base}-3000.jpg 3000w` : ""}`}
-          sizes={sizes}
-          alt={alt}
-          className="w-full h-auto object-contain"
-          loading={variant === "card" ? "lazy" : undefined}
-        />
-      </picture>
-    );
-  };
-
   const services = [
     {
       icon: <Sofa className="w-8 h-8" />,
       title: "Higienização de Estofados",
       description: "Limpeza profunda e hipermeabilização de sofás, poltronas e móveis estofados.",
-      imageBase: "estofados",
+      image: "/img/estofados-1200.jpg",
       details: {
         highlights: [
           "Extração profunda de sujeira",
@@ -97,26 +72,26 @@ const LandingPage = () => {
       }
     },
     {
-      icon: <Car className="w-8 h-8" />,
-      title: "Higienização de Veículos",
-      description: "Limpeza completa de bancos, carpetes e acabamentos internos automotivos.",
-      imageBase: "veiculos",
-      details: {
-        highlights: [
-          "Extração profunda dos tecidos",
-          "Remoção de odores (suor, comida, pets)",
-          "Higienização do ar e plásticos internos"
-        ],
-        text: "Seu carro com aparência e cheiro de novo: bancos, teto, forrações e carpetes com limpeza técnica e produtos adequados.",
-        ctaLabel: "Quero higienizar meu carro",
-        ctaLink: "https://wa.me/5551992316723?text=Ve%C3%ADculos%20-%20higieniza%C3%A7%C3%A3o"
-      }
-    },
+	  icon: <Car className="w-8 h-8" />,
+	  title: "Higienização de Veículos",
+	  description: "Limpeza completa de bancos, carpetes e acabamentos internos automotivos.",
+	  image: "/img/veiculos-1200.jpg",          // ← novo caminho
+	  details: {
+		highlights: [
+		  "Extração profunda dos tecidos",
+		  "Remoção de odores (suor, comida, pets)",
+		  "Higienização do ar e plásticos internos"
+		],
+		text: "Seu carro com aparência e cheiro de novo: bancos, teto, forrações e carpetes com limpeza técnica e produtos adequados.",
+		ctaLabel: "Quero higienizar meu carro",
+		ctaLink: "https://wa.me/5551992316723?text=Ve%C3%ADculos%20-%20higieniza%C3%A7%C3%A3o"
+	  }
+	},
     {
       icon: <Building className="w-8 h-8" />,
       title: "Limpeza de Escritórios",
       description: "Higienização completa de ambientes corporativos e comerciais.",
-      imageBase: "escritorio",
+      image: "/img/escritorio-1200.jpg",
       details: {
         highlights: [
           "Ambientes sem poeira e ácaros",
@@ -132,7 +107,7 @@ const LandingPage = () => {
       icon: <Stethoscope className="w-8 h-8" />,
       title: "Higienização de Clínicas",
       description: "Limpeza especializada para ambientes médicos e de saúde.",
-      imageBase: "clinicas",
+      image: "/img/clinicas-1200.jpg",
       details: {
         highlights: [
           "Protocolos e EPIs adequados",
@@ -145,26 +120,16 @@ const LandingPage = () => {
       }
     },
     {
-	  icon: <Square className="w-8 h-8" />,
-	  title: "Limpeza de Tapetes",
-	  description: "Higienização profunda de tapetes e carpetes residenciais e comerciais.",
-	  imageBase: "tapetes",
-	  details: {
-		highlights: [
-		  "Lavagem técnica por extração",
-		  "Remoção de manchas e pelos de pets",
-		  "Neutralização de odores (mofo, urina, comida)"
-		],
-		text: "Cuidamos de tapetes sintéticos e fibras naturais (como lã) com produtos e técnicas adequadas, restaurando maciez e cor.",
-		ctaLabel: "Quero higienizar meu tapete",
-		ctaLink: "https://wa.me/5551992316723?text=Tapetes%20-%20or%C3%A7amento"
-	  }
-	},
+      icon: <Square className="w-8 h-8" />,
+      title: "Limpeza de Tapetes",
+      description: "Higienização profunda de tapetes e carpetes residenciais e comerciais.",
+      image: "https://images.pexels.com/photos/9093874/pexels-photo-9093874.jpeg"
+    },
     {
       icon: <ArrowUp className="w-8 h-8" />,
       title: "Limpeza de Elevadores",
       description: "Higienização especializada de elevadores e espaços confinados.",
-      imageBase: "elevadores",
+      image: "/img/elevadores-1200.jpg",
       details: {
         highlights: [
           "Proteções de cabine e portas durante a execução",
@@ -367,26 +332,14 @@ const LandingPage = () => {
                 whileHover={{ scale: 1.05 }}
                 className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300"
               >
-                {/* 🔄 imagem SEM CORTE: centralizada, com object-contain */}
-                <div className="h-48 bg-white flex items-center justify-center px-3">
-                  {service.imageBase ? (
-                    <ServicePicture
-                      base={service.imageBase}
-                      alt={service.title}
-                      variant="card"
-                      onClick={() => openModal(service)}
-                      className="cursor-zoom-in max-h-48"
-                    />
-                  ) : (
-                    <img
-                      src={service.image}
-                      alt={service.title}
-                      className="w-full h-auto object-contain cursor-zoom-in max-h-48"
-                      onClick={() => openModal(service)}
-                    />
-                  )}
+                <div className="h-48 overflow-hidden">
+                  <img 
+                    src={service.image} 
+                    alt={service.title}
+                    className="w-full h-full object-cover hover:scale-110 transition-transform duration-300 cursor-zoom-in"
+                    onClick={() => openModal(service)}
+                  />
                 </div>
-
                 <div className="p-6">
                   <div className="flex items-center mb-4">
                     <div className="bg-blue-100 p-3 rounded-full mr-4">
@@ -769,20 +722,12 @@ const LandingPage = () => {
             {/* Body */}
             <div className="grid md:grid-cols-2 gap-0">
               {/* Imagem expandida */}
-              <div className="bg-black p-2">
-                {selectedService.imageBase ? (
-                  <ServicePicture
-                    base={selectedService.imageBase}
-                    alt={selectedService.title}
-                    variant="modal"
-                  />
-                ) : (
-                  <img
-                    src={selectedService.image}
-                    alt={selectedService.title}
-                    className="w-full h-full md:h-[520px] object-contain bg-black"
-                  />
-                )}
+              <div className="bg-black">
+                <img
+                  src={selectedService.image}
+                  alt={selectedService.title}
+                  className="w-full h-full md:h-[520px] object-contain bg-black"
+                />
               </div>
 
               {/* Informações */}
